@@ -24,6 +24,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QModbusTcpClient *client;
+    QModbusTcpClient *client = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -6,26 +6,62 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>966</width>
+    <height>673</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>181</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>数据看板</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>设备组态</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QStackedWidget" name="pageList">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>0</y>
+      <width>781</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <widget class="DeviceConfig" name="config"/>
+    <widget class="ModbusDebug" name="debug"/>
+   </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DeviceConfig</class>
+   <extends>QWidget</extends>
+   <header location="local">device/deviceconfig.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ModbusDebug</class>
+   <extends>QWidget</extends>
+   <header location="local">debug/modbusdebug.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

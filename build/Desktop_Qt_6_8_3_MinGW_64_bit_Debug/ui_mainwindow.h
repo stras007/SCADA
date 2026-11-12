@@ -11,10 +11,12 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QWidget>
+#include "debug/modbusdebug.h"
+#include "device/deviceconfig.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -22,24 +24,33 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
+    QListWidget *listWidget;
+    QStackedWidget *pageList;
+    DeviceConfig *config;
+    ModbusDebug *debug;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 600);
+        MainWindow->resize(966, 673);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
+        listWidget = new QListWidget(centralwidget);
+        new QListWidgetItem(listWidget);
+        new QListWidgetItem(listWidget);
+        listWidget->setObjectName("listWidget");
+        listWidget->setGeometry(QRect(0, 0, 181, 671));
+        pageList = new QStackedWidget(centralwidget);
+        pageList->setObjectName("pageList");
+        pageList->setGeometry(QRect(180, 0, 781, 671));
+        config = new DeviceConfig();
+        config->setObjectName("config");
+        pageList->addWidget(config);
+        debug = new ModbusDebug();
+        debug->setObjectName("debug");
+        pageList->addWidget(debug);
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName("statusbar");
-        MainWindow->setStatusBar(statusbar);
 
         retranslateUi(MainWindow);
 
@@ -49,6 +60,15 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+
+        const bool __sortingEnabled = listWidget->isSortingEnabled();
+        listWidget->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
+        ___qlistwidgetitem->setText(QCoreApplication::translate("MainWindow", "\346\225\260\346\215\256\347\234\213\346\235\277", nullptr));
+        QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
+        ___qlistwidgetitem1->setText(QCoreApplication::translate("MainWindow", "\350\256\276\345\244\207\347\273\204\346\200\201", nullptr));
+        listWidget->setSortingEnabled(__sortingEnabled);
+
     } // retranslateUi
 
 };

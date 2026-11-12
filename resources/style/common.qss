@@ -1,0 +1,94 @@
+/* =====================================================================
+   全局通用样式表（所有页面共享，由 main.cpp 加载）
+   各页面专属样式在 modules/<模块>/<页面>.qss 中维护
+   ---------------------------------------------------------------------
+   配色规范（与设计稿 :root 变量一致）：
+   卡片底色 #ffffff  主文字 #0f172a  次要文字 #475569  弱化 #94a3b8
+   主色青   #0d9488  深青   #115e59  警示红 #dc2626
+   边框     #cbd5e1  浅边框 #e2e8f0  浅灰底 #f1f5f9
+   ===================================================================== */
+
+/* ---------- 基础 ---------- */
+QWidget {
+    background: #ffffff;
+    color: #0f172a;
+    font-family: "Microsoft YaHei", "Segoe UI";
+    font-size: 12px;
+}
+
+/* ---------- 页面标题行 ----------
+   使用方法：给 QLabel 添加动态属性 class = "pageTitle" / "pageInfo" */
+QLabel[class="pageTitle"] { font-size: 15px; font-weight: 700; }
+QLabel[class="pageInfo"]  { color: #475569; }
+
+/* ---------- 面板（白色圆角卡片容器） ----------
+   使用方法：给 QFrame 添加动态属性 class = "panel" */
+QFrame[class="panel"] {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+QLabel[class="panelTitle"] { font-size: 12px; font-weight: 700; color: #334155; }
+
+/* ---------- 说明文字 ---------- */
+QLabel[class="descText"] { color: #475569; }
+
+/* ---------- 按钮（主按钮：动态属性 primary = true） ---------- */
+QPushButton {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    padding: 4px 14px;
+    color: #334155;
+}
+QPushButton:hover    { border-color: #0d9488; color: #0d9488; }
+QPushButton:pressed  { background: #f1f5f9; }
+QPushButton:disabled { color: #94a3b8; border-color: #e2e8f0; background: #f8fafc; }
+QPushButton[primary="true"] { background: #0d9488; border-color: #0d9488; color: #ffffff; }
+QPushButton[primary="true"]:hover { background: #0b7c72; }
+
+/* ---------- 输入框 ---------- */
+QLineEdit {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 3px 8px;
+}
+QLineEdit:focus { border-color: #0d9488; }
+
+/* ---------- 表格 ---------- */
+QTableWidget {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    gridline-color: #e2e8f0;
+    selection-background-color: #ccfbf1;
+    selection-color: #115e59;
+}
+QTableWidget::item:hover { background: #f8fafc; }
+QHeaderView::section {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    padding: 4px 6px;
+}
+QTableCornerButton::section { background: #f1f5f9; border: 1px solid #e2e8f0; }
+
+/* ---------- 主窗口侧边导航（对应设计稿 navcol） ----------
+   注意：侧边栏的对象名是 listWidget；pageList 是右侧 QStackedWidget */
+QListWidget#listWidget {
+    background: #f1f5f9;
+    border: none;
+    border-right: 1px solid #e2e8f0;
+    font-size: 13px;
+    outline: 0;
+}
+QListWidget#listWidget::item {
+    padding: 14px 18px;
+    color: #475569;
+}
+QListWidget#listWidget::item:hover { background: #e2e8f0; }
+QListWidget#listWidget::item:selected {
+    background: #0d9488;
+    color: #ffffff;
+    border: none;
+}

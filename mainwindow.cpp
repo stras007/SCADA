@@ -21,7 +21,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 链接
     connect(client, &QModbusTcpClient::stateChanged, this, &MainWindow::onStateChanged);
+    connect(client, &QModbusClient::errorOccurred, this, [](QModbusDevice::Error e) {
+        if (e != QModbusDevice::NoError)
+            qWarning() << "modbus error:" << e;
+    });
 
+    // 侧边栏与页面栈的联动只建立一次，必须放在构造函数里
+    connect(ui->listWidget, &QListWidget::currentRowChanged,
+            ui->pageList, &QStackedWidget::setCurrentIndex);
+    ui->listWidget->setCurrentRow(0);
 }
 
 void MainWindow::onStateChanged(QModbusDevice::State state) {
@@ -42,7 +50,6 @@ void MainWindow::onStateChanged(QModbusDevice::State state) {
     if (state == QModbusDevice::ClosingState) {
         qDebug() << "closing";
     }
-
 }
 
 void MainWindow::onBmsReplyFinished() {
