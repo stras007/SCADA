@@ -1,4 +1,4 @@
-QT += widgets
+QT += widgets core serialbus network
 
 CONFIG += c++17
 
