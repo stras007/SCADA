@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QStackedWidget>
@@ -24,6 +25,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QHBoxLayout *mainLayout;
     QListWidget *listWidget;
     QStackedWidget *pageList;
     DeviceConfig *config;
@@ -33,23 +35,35 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(966, 673);
+        MainWindow->resize(1300, 700);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
+        mainLayout = new QHBoxLayout(centralwidget);
+        mainLayout->setSpacing(0);
+        mainLayout->setObjectName("mainLayout");
+        mainLayout->setContentsMargins(0, 0, 0, 0);
         listWidget = new QListWidget(centralwidget);
         new QListWidgetItem(listWidget);
         new QListWidgetItem(listWidget);
         listWidget->setObjectName("listWidget");
-        listWidget->setGeometry(QRect(0, 0, 181, 671));
+        listWidget->setMinimumSize(QSize(181, 0));
+        listWidget->setMaximumSize(QSize(181, 16777215));
+        listWidget->setFrameShape(QFrame::Shape::NoFrame);
+        listWidget->setSpacing(6);
+
+        mainLayout->addWidget(listWidget);
+
         pageList = new QStackedWidget(centralwidget);
         pageList->setObjectName("pageList");
-        pageList->setGeometry(QRect(180, 0, 781, 671));
         config = new DeviceConfig();
         config->setObjectName("config");
         pageList->addWidget(config);
         debug = new ModbusDebug();
         debug->setObjectName("debug");
         pageList->addWidget(debug);
+
+        mainLayout->addWidget(pageList);
+
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);

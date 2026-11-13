@@ -1,0 +1,10 @@
+debug/modbusdebug.o
+debug/deviceconfig.o
+debug/projectconfig.o
+debug/main.o
+debug/mainwindow.o
+debug/qrc_resources.o
+debug/moc_modbusdebug.o
+debug/moc_deviceconfig.o
+debug/moc_projectconfig.o
+debug/moc_mainwindow.o

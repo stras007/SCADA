@@ -261,6 +261,7 @@ Makefile: ../../scada.pro D:/Qt/6.8.3/mingw_64/mkspecs/win32-g++/qmake.conf D:/Q
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/resolve_config.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/exclusive_builds_post.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/default_post.prf \
+		D:/Qt/6.8.3/mingw_64/mkspecs/features/file_copies.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/qml_debug.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/precompile_header.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/warn_on.prf \
@@ -272,7 +273,6 @@ Makefile: ../../scada.pro D:/Qt/6.8.3/mingw_64/mkspecs/win32-g++/qmake.conf D:/Q
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/win32/opengl.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/uic.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/qmake_use.prf \
-		D:/Qt/6.8.3/mingw_64/mkspecs/features/file_copies.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/win32/windows.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/testcase_targets.prf \
 		D:/Qt/6.8.3/mingw_64/mkspecs/features/exceptions.prf \
@@ -480,6 +480,7 @@ D:/Qt/6.8.3/mingw_64/mkspecs/features/win32/default_pre.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/resolve_config.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/exclusive_builds_post.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/default_post.prf:
+D:/Qt/6.8.3/mingw_64/mkspecs/features/file_copies.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/qml_debug.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/precompile_header.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/warn_on.prf:
@@ -491,7 +492,6 @@ D:/Qt/6.8.3/mingw_64/mkspecs/features/moc.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/win32/opengl.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/uic.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/qmake_use.prf:
-D:/Qt/6.8.3/mingw_64/mkspecs/features/file_copies.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/win32/windows.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/testcase_targets.prf:
 D:/Qt/6.8.3/mingw_64/mkspecs/features/exceptions.prf:

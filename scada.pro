@@ -9,12 +9,14 @@ CONFIG += c++17
 SOURCES += \
     debug/modbusdebug.cpp \
     device/deviceconfig.cpp \
+    device/projectconfig.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     debug/modbusdebug.h \
     device/deviceconfig.h \
+    device/projectconfig.h \
     mainwindow.h
 
 FORMS += \
@@ -26,6 +28,15 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# 构建后自动把初始配置拷到 exe 目录
+CONFIG += file_copies
+COPIES += configFiles
+configFiles.files = $$PWD/resources/project_config.json
+
+# MinGW debug：exe 在 $$OUT_PWD/debug
+configFiles.path = $$OUT_PWD/debug
+
 
 RESOURCES += \
     resources/resources.qrc

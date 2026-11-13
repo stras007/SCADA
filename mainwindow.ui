@@ -6,59 +6,82 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>966</width>
-    <height>673</height>
+    <width>1300</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>181</width>
-      <height>671</height>
-     </rect>
+   <layout class="QHBoxLayout" name="mainLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
     </property>
     <item>
-     <property name="text">
-      <string>数据看板</string>
-     </property>
+     <widget class="QListWidget" name="listWidget">
+      <property name="minimumSize">
+       <size>
+        <width>181</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>181</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::NoFrame</enum>
+      </property>
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>数据看板</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>设备组态</string>
+       </property>
+      </item>
+     </widget>
     </item>
     <item>
-     <property name="text">
-      <string>设备组态</string>
-     </property>
+     <widget class="QStackedWidget" name="pageList">
+      <widget class="DeviceConfig" name="config"/>
+      <widget class="ModbusDebug" name="debug"/>
+     </widget>
     </item>
-   </widget>
-   <widget class="QStackedWidget" name="pageList">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>0</y>
-      <width>781</width>
-      <height>671</height>
-     </rect>
-    </property>
-    <widget class="DeviceConfig" name="config"/>
-    <widget class="ModbusDebug" name="debug"/>
-   </widget>
+   </layout>
   </widget>
  </widget>
  <customwidgets>
   <customwidget>
    <class>DeviceConfig</class>
    <extends>QWidget</extends>
-   <header location="local">device/deviceconfig.h</header>
+   <header>device/deviceconfig.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>ModbusDebug</class>
    <extends>QWidget</extends>
-   <header location="local">debug/modbusdebug.h</header>
+   <header>debug/modbusdebug.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
