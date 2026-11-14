@@ -39,7 +39,7 @@ public:
     QSpacerItem *spState_2;
     QLabel *lblStatePath;
     QTableWidget *deviceTable;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QHBoxLayout *hboxDevBtns;
     QPushButton *btnAddDevice;
     QPushButton *btnEditDevice;
@@ -47,7 +47,7 @@ public:
     QSpacerItem *spDevBtns;
     QPushButton *btnRevert;
     QPushButton *btnApply;
-    QWidget *widget1;
+    QWidget *layoutWidget2;
     QHBoxLayout *hboxTitle;
     QLabel *lblPageInfo;
     QSpacerItem *spState;
@@ -60,7 +60,7 @@ public:
         DeviceConfig->resize(1145, 780);
         layoutWidget = new QWidget(DeviceConfig);
         layoutWidget->setObjectName("layoutWidget");
-        layoutWidget->setGeometry(QRect(80, 160, 981, 41));
+        layoutWidget->setGeometry(QRect(80, 140, 981, 41));
         panelPcs = new QHBoxLayout(layoutWidget);
         panelPcs->setObjectName("panelPcs");
         panelPcs->setContentsMargins(0, 0, 0, 0);
@@ -90,10 +90,10 @@ public:
 
         lblDevTitle = new QLabel(DeviceConfig);
         lblDevTitle->setObjectName("lblDevTitle");
-        lblDevTitle->setGeometry(QRect(80, 240, 391, 31));
+        lblDevTitle->setGeometry(QRect(80, 210, 391, 31));
         layoutWidget_2 = new QWidget(DeviceConfig);
         layoutWidget_2->setObjectName("layoutWidget_2");
-        layoutWidget_2->setGeometry(QRect(80, 640, 981, 41));
+        layoutWidget_2->setGeometry(QRect(80, 610, 981, 41));
         hboxState = new QHBoxLayout(layoutWidget_2);
         hboxState->setObjectName("hboxState");
         hboxState->setContentsMargins(0, 0, 0, 0);
@@ -131,24 +131,24 @@ public:
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
         deviceTable->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         deviceTable->setObjectName("deviceTable");
-        deviceTable->setGeometry(QRect(80, 320, 981, 321));
-        widget = new QWidget(DeviceConfig);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(80, 280, 981, 41));
-        hboxDevBtns = new QHBoxLayout(widget);
+        deviceTable->setGeometry(QRect(80, 280, 981, 321));
+        layoutWidget1 = new QWidget(DeviceConfig);
+        layoutWidget1->setObjectName("layoutWidget1");
+        layoutWidget1->setGeometry(QRect(80, 240, 981, 41));
+        hboxDevBtns = new QHBoxLayout(layoutWidget1);
         hboxDevBtns->setObjectName("hboxDevBtns");
         hboxDevBtns->setContentsMargins(0, 0, 0, 0);
-        btnAddDevice = new QPushButton(widget);
+        btnAddDevice = new QPushButton(layoutWidget1);
         btnAddDevice->setObjectName("btnAddDevice");
 
         hboxDevBtns->addWidget(btnAddDevice);
 
-        btnEditDevice = new QPushButton(widget);
+        btnEditDevice = new QPushButton(layoutWidget1);
         btnEditDevice->setObjectName("btnEditDevice");
 
         hboxDevBtns->addWidget(btnEditDevice);
 
-        btnRemoveDevice = new QPushButton(widget);
+        btnRemoveDevice = new QPushButton(layoutWidget1);
         btnRemoveDevice->setObjectName("btnRemoveDevice");
 
         hboxDevBtns->addWidget(btnRemoveDevice);
@@ -157,23 +157,23 @@ public:
 
         hboxDevBtns->addItem(spDevBtns);
 
-        btnRevert = new QPushButton(widget);
+        btnRevert = new QPushButton(layoutWidget1);
         btnRevert->setObjectName("btnRevert");
 
         hboxDevBtns->addWidget(btnRevert);
 
-        btnApply = new QPushButton(widget);
+        btnApply = new QPushButton(layoutWidget1);
         btnApply->setObjectName("btnApply");
 
         hboxDevBtns->addWidget(btnApply);
 
-        widget1 = new QWidget(DeviceConfig);
-        widget1->setObjectName("widget1");
-        widget1->setGeometry(QRect(80, 80, 981, 41));
-        hboxTitle = new QHBoxLayout(widget1);
+        layoutWidget2 = new QWidget(DeviceConfig);
+        layoutWidget2->setObjectName("layoutWidget2");
+        layoutWidget2->setGeometry(QRect(80, 80, 981, 41));
+        hboxTitle = new QHBoxLayout(layoutWidget2);
         hboxTitle->setObjectName("hboxTitle");
         hboxTitle->setContentsMargins(0, 0, 0, 0);
-        lblPageInfo = new QLabel(widget1);
+        lblPageInfo = new QLabel(layoutWidget2);
         lblPageInfo->setObjectName("lblPageInfo");
 
         hboxTitle->addWidget(lblPageInfo);
@@ -182,7 +182,7 @@ public:
 
         hboxTitle->addItem(spState);
 
-        lblPageTitle = new QLabel(widget1);
+        lblPageTitle = new QLabel(layoutWidget2);
         lblPageTitle->setObjectName("lblPageTitle");
 
         hboxTitle->addWidget(lblPageTitle);

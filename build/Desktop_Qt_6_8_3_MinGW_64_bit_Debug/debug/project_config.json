@@ -15,7 +15,7 @@
             "deviceId": 1,
             "enabled": true,
             "model": "BMU-LFP-208S",
-            "name": "簇1",
+            "name": "簇11",
             "pcsUnit": 1,
             "ratedCapacity": 100,
             "ratedChgCurrent": 125,
@@ -44,7 +44,7 @@
             "ratedChgCurrent": 125,
             "ratedDisCurrent": 125,
             "ratedVoltage": 720,
-            "slaveId": 2
+            "slaveId": 6
         },
         {
             "alarm": {
@@ -164,7 +164,7 @@
     ],
     "host": "127.0.0.1",
     "nextDeviceId": 9,
-    "pcsSlave": 11,
+    "pcsSlave": 10,
     "port": 1502,
     "version": 1
 }

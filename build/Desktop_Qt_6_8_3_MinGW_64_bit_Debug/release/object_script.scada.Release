@@ -1,10 +1,12 @@
 release/modbusdebug.o
 release/deviceconfig.o
+release/dialog.o
 release/projectconfig.o
 release/main.o
 release/mainwindow.o
 release/qrc_resources.o
 release/moc_modbusdebug.o
 release/moc_deviceconfig.o
+release/moc_dialog.o
 release/moc_projectconfig.o
 release/moc_mainwindow.o

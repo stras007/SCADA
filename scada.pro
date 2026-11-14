@@ -9,6 +9,7 @@ CONFIG += c++17
 SOURCES += \
     debug/modbusdebug.cpp \
     device/deviceconfig.cpp \
+    device/dialog.cpp \
     device/projectconfig.cpp \
     main.cpp \
     mainwindow.cpp
@@ -16,12 +17,14 @@ SOURCES += \
 HEADERS += \
     debug/modbusdebug.h \
     device/deviceconfig.h \
+    device/dialog.h \
     device/projectconfig.h \
     mainwindow.h
 
 FORMS += \
     debug/modbusdebug.ui \
     device/deviceconfig.ui \
+    device/dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -37,6 +40,11 @@ configFiles.files = $$PWD/resources/project_config.json
 # MinGW debug：exe 在 $$OUT_PWD/debug
 configFiles.path = $$OUT_PWD/debug
 
+
+INCLUDEPATH +=
+    $$PWD/device/deviceconfig.h
+    $$PWD/device/projectconfig.h
+    $$PWD/device/dialog.h
 
 RESOURCES += \
     resources/resources.qrc
