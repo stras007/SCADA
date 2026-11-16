@@ -44,7 +44,7 @@
             "ratedChgCurrent": 125,
             "ratedDisCurrent": 125,
             "ratedVoltage": 720,
-            "slaveId": 6
+            "slaveId": 2
         },
         {
             "alarm": {
@@ -164,7 +164,7 @@
     ],
     "host": "127.0.0.1",
     "nextDeviceId": 9,
-    "pcsSlave": 10,
+    "pcsSlave": 11,
     "port": 1502,
     "version": 1
 }

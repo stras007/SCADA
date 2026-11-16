@@ -35,7 +35,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1300, 700);
+        MainWindow->resize(1300, 750);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         mainLayout = new QHBoxLayout(centralwidget);
@@ -78,9 +78,9 @@ public:
         const bool __sortingEnabled = listWidget->isSortingEnabled();
         listWidget->setSortingEnabled(false);
         QListWidgetItem *___qlistwidgetitem = listWidget->item(0);
-        ___qlistwidgetitem->setText(QCoreApplication::translate("MainWindow", "\346\225\260\346\215\256\347\234\213\346\235\277", nullptr));
+        ___qlistwidgetitem->setText(QCoreApplication::translate("MainWindow", "\350\256\276\345\244\207\347\273\204\346\200\201", nullptr));
         QListWidgetItem *___qlistwidgetitem1 = listWidget->item(1);
-        ___qlistwidgetitem1->setText(QCoreApplication::translate("MainWindow", "\350\256\276\345\244\207\347\273\204\346\200\201", nullptr));
+        ___qlistwidgetitem1->setText(QCoreApplication::translate("MainWindow", "\351\200\232\350\256\257\350\260\203\350\257\225 ", nullptr));
         listWidget->setSortingEnabled(__sortingEnabled);
 
     } // retranslateUi
