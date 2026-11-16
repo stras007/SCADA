@@ -7,6 +7,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    common/modbusmanager.cpp \
     debug/modbusdebug.cpp \
     device/deviceconfig.cpp \
     device/dialog.cpp \
@@ -15,6 +16,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    common/modbusmanager.h \
+    common/modbusmap.h \
     debug/modbusdebug.h \
     device/deviceconfig.h \
     device/dialog.h \
@@ -45,6 +48,9 @@ INCLUDEPATH +=
     $$PWD/device/deviceconfig.h
     $$PWD/device/projectconfig.h
     $$PWD/device/dialog.h
+    $$PWD/common/modbusmanager.h
+    $$PWD/common/modbusmap.h
+    $$PWD/debug/modbusdebug.h
 
 RESOURCES += \
     resources/resources.qrc

@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>style/common.qss</file>
         <file>style/styleutil.h</file>
+        <file>style/modbusdebug.qss</file>
+        <file>style/deviceconfig.qss</file>
     </qresource>
 </RCC>

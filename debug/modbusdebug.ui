@@ -1,30 +1,818 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ModbusDebug</class>
- <widget class="QWidget" name="ModbusDebug">
+ <widget class="QMainWindow" name="ModbusDebug">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1042</width>
-    <height>695</height>
+    <width>1096</width>
+    <height>820</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>MainWindow</string>
   </property>
-  <widget class="QProgressBar" name="progressBar">
-   <property name="geometry">
-    <rect>
-     <x>320</x>
-     <y>270</y>
-     <width>411</width>
-     <height>121</height>
-    </rect>
-   </property>
-   <property name="value">
-    <number>89</number>
-   </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QScrollArea" name="scrollAreaPage">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1096</width>
+      <height>820</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::NoFrame</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1096</width>
+       <height>820</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="mainLayout">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>12</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>12</number>
+      </property>
+      <property name="bottomMargin">
+       <number>12</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="hboxTitle">
+        <item>
+         <widget class="QLabel" name="lblPageTitle">
+          <property name="text">
+           <string>Modbus 通讯调试</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>pageTitle</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spTitle">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblPageInfo">
+          <property name="text">
+           <string>动态簇组配置 · 实时数据轮询</string>
+          </property>
+          <property name="class" stdset="0">
+           <string>pageInfo</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QFrame" name="panelConn">
+        <property name="class" stdset="0">
+         <string>panel</string>
+        </property>
+        <layout class="QVBoxLayout" name="layPanelConn">
+         <property name="spacing">
+          <number>8</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="lblConnTitle">
+           <property name="text">
+            <string>通讯连接</string>
+           </property>
+           <property name="class" stdset="0">
+            <string>panelTitle</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hboxConn">
+           <item>
+            <widget class="QLabel" name="lblHost">
+             <property name="text">
+              <string>服务器地址</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>descText</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="editHost">
+             <property name="minimumSize">
+              <size>
+               <width>140</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>127.0.0.1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblPort">
+             <property name="text">
+              <string>端口</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>descText</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="editPort">
+             <property name="maximumSize">
+              <size>
+               <width>70</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>1502</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>addrEdit</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnConnect">
+             <property name="text">
+              <string>连接</string>
+             </property>
+             <property name="primary" stdset="0">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="spConn">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblConnState">
+             <property name="text">
+              <string>未连接</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>stateText</string>
+             </property>
+             <property name="online" stdset="0">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="panelRealtime">
+        <property name="class" stdset="0">
+         <string>panel</string>
+        </property>
+        <layout class="QVBoxLayout" name="layPanelRealtime">
+         <item>
+          <widget class="QLabel" name="lblRtTitle">
+           <property name="text">
+            <string>实时数据（轮询自动刷新 · 控制台同步输出）</string>
+           </property>
+           <property name="class" stdset="0">
+            <string>panelTitle</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="realtimeTable">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>170</height>
+            </size>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>簇</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>电压</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>电流</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>SOC</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>最高温度</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>状态</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="panelPcs">
+        <property name="class" stdset="0">
+         <string>panel</string>
+        </property>
+        <layout class="QVBoxLayout" name="layPanelPcs">
+         <item>
+          <widget class="QLabel" name="lblPcsTitle">
+           <property name="text">
+            <string>PCS 逆变器 · 充放电统计（自动轮询）</string>
+           </property>
+           <property name="class" stdset="0">
+            <string>panelTitle</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hboxPcsRow1">
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG1">
+             <item>
+              <widget class="QLabel" name="lblCapP">
+               <property name="text">
+                <string>有功功率</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsPower">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG2">
+             <item>
+              <widget class="QLabel" name="lblCapAcV">
+               <property name="text">
+                <string>交流电压</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsAcV">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG3">
+             <item>
+              <widget class="QLabel" name="lblCapFreq">
+               <property name="text">
+                <string>频率</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsFreq">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG4">
+             <item>
+              <widget class="QLabel" name="lblCapState">
+               <property name="text">
+                <string>状态</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsState">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="spPcsRow1">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hboxPcsRow2">
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG5">
+             <item>
+              <widget class="QLabel" name="lblCapDayChg">
+               <property name="text">
+                <string>日充电量</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsDayChg">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG6">
+             <item>
+              <widget class="QLabel" name="lblCapDayDis">
+               <property name="text">
+                <string>日放电量</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsDayDis">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG7">
+             <item>
+              <widget class="QLabel" name="lblCapTotalChg">
+               <property name="text">
+                <string>累计充电量</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsTotalChg">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxPcsG8">
+             <item>
+              <widget class="QLabel" name="lblCapTotalDis">
+               <property name="text">
+                <string>累计放电量</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPcsTotalDis">
+               <property name="text">
+                <string>-</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>valueText</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="spPcsRow2">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="hboxRegs" stretch="1,1">
+        <item>
+         <widget class="QFrame" name="panelReadWrite">
+          <property name="class" stdset="0">
+           <string>panel</string>
+          </property>
+          <layout class="QVBoxLayout" name="layPanelReadWrite">
+           <property name="spacing">
+            <number>8</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="lblRwTitle">
+             <property name="text">
+              <string>寄存器手动读写</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>panelTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxRw1">
+             <item>
+              <widget class="QLabel" name="lblSlave">
+               <property name="text">
+                <string>从站地址</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="editSlaveId">
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>1</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>addrEdit</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblAddr">
+               <property name="text">
+                <string>起始地址</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="editStartAddr">
+               <property name="maximumSize">
+                <size>
+                 <width>90</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0x0100</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>addrEdit</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblFunc">
+               <property name="text">
+                <string>功能码</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="editFuncCode">
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>03</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>addrEdit</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblCount">
+               <property name="text">
+                <string>数量</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="editCount">
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>10</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>addrEdit</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hboxRw2">
+             <item>
+              <widget class="QLabel" name="lblWriteVal">
+               <property name="text">
+                <string>写入值</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>descText</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="editWriteValue">
+               <property name="maximumSize">
+                <size>
+                 <width>80</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+               <property name="class" stdset="0">
+                <string>addrEdit</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnRead">
+               <property name="text">
+                <string>读取</string>
+               </property>
+               <property name="primary" stdset="0">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnWrite">
+               <property name="text">
+                <string>写入</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="spRw2">
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="panelRegValues">
+          <property name="class" stdset="0">
+           <string>panel</string>
+          </property>
+          <layout class="QVBoxLayout" name="layPanelRegValues">
+           <item>
+            <widget class="QLabel" name="lblRvTitle">
+             <property name="text">
+              <string>寄存器值列表</string>
+             </property>
+             <property name="class" stdset="0">
+              <string>panelTitle</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="regValueTable">
+             <property name="editTriggers">
+              <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+             </property>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>地址</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>值</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>映射</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QFrame" name="panelLog">
+        <property name="class" stdset="0">
+         <string>panel</string>
+        </property>
+        <layout class="QVBoxLayout" name="layPanelLog">
+         <item>
+          <widget class="QLabel" name="lblLogTitle">
+           <property name="text">
+            <string>通讯诊断 / 日志</string>
+           </property>
+           <property name="class" stdset="0">
+            <string>panelTitle</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="logEdit">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>110</height>
+            </size>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="spBottom">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>

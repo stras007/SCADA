@@ -1,0 +1,18 @@
+/* ===== Modbus 通讯调试 · 本页专属样式 ===== */
+
+/* 连接状态指示：动态属性 online（true=绿 / false=红），代码中修改后需 repolish */
+QLabel[class="stateText"] { font-weight: 600; color: #dc2626; }
+QLabel[class="stateText"][online="true"] { color: #065f46; }
+
+/* 地址/数值类输入框：等宽字体便于核对十六进制 */
+QLineEdit[class="addrEdit"] { font-family: "Consolas", "Courier New"; }
+
+/* PCS 面板数值标签：加粗深色 */
+QLabel[class="valueText"] { font-weight: 600; color: #0f172a; }
+
+/* 日志区：等宽字体 + 浅灰底 */
+QPlainTextEdit#logEdit {
+    font-family: "Consolas", "Courier New";
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}

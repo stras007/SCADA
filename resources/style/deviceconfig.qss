@@ -1,0 +1,12 @@
+/* ===== 设备组态 · 本页专属样式 ===== */
+
+/* 底部状态标签：绿=已下发 / 橙=草稿 / 红=校验失败 */
+QLabel[class="stateOk"]    { color: #065f46; font-weight: 600; }
+QLabel[class="stateDirty"] { color: #b45309; font-weight: 600; }
+QLabel[class="stateErr"]   { color: #dc2626; font-weight: 600; }
+
+/* 对话框数值标签：加粗深色 */
+QLabel[class="valueText"] { font-weight: 600; color: #0f172a; }
+
+/* 台账表格 */
+QTableWidget#deviceTable { font-family: "Microsoft YaHei"; }

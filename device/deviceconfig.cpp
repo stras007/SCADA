@@ -10,6 +10,12 @@ DeviceConfig::DeviceConfig(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QFile qss(QStringLiteral(":/style/deviceconfig.qss"));
+    if (qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        this->setStyleSheet(QString::fromUtf8(qss.readAll()));
+        qss.close();
+    }
+
     // 配置project_json并load
     config->setFilePath(QCoreApplication::applicationDirPath() + "/project_config.json");
     config->loadFromFile();

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1300</width>
-    <height>700</height>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,12 +52,12 @@
       </property>
       <item>
        <property name="text">
-        <string>数据看板</string>
+        <string>设备组态</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>设备组态</string>
+        <string>通讯调试 </string>
        </property>
       </item>
      </widget>
