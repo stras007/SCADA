@@ -9,22 +9,22 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    client = new QModbusTcpClient(this);
+    // client = new QModbusTcpClient(this);
 
-    // 设置 ip, port
-    client->setConnectionParameter(QModbusDevice::NetworkAddressParameter, QStringLiteral("127.0.0.1"));
-    client->setConnectionParameter(QModbusDevice::NetworkPortParameter, 1502);
+    // // 设置 ip, port
+    // client->setConnectionParameter(QModbusDevice::NetworkAddressParameter, QStringLiteral("127.0.0.1"));
+    // client->setConnectionParameter(QModbusDevice::NetworkPortParameter, 1502);
 
-    client->setTimeout(1000);
-    client->setNumberOfRetries(3);
-    client->connectDevice();
+    // client->setTimeout(1000);
+    // client->setNumberOfRetries(3);
+    // client->connectDevice();
 
-    // 链接
-    connect(client, &QModbusTcpClient::stateChanged, this, &MainWindow::onStateChanged);
-    connect(client, &QModbusClient::errorOccurred, this, [](QModbusDevice::Error e) {
-        if (e != QModbusDevice::NoError)
-            qWarning() << "modbus error:" << e;
-    });
+    // // 链接
+    // connect(client, &QModbusTcpClient::stateChanged, this, &MainWindow::onStateChanged);
+    // connect(client, &QModbusClient::errorOccurred, this, [](QModbusDevice::Error e) {
+    //     if (e != QModbusDevice::NoError)
+    //         qWarning() << "modbus error:" << e;
+    // });
 
     // 侧边栏与页面栈的联动只建立一次，必须放在构造函数里
     connect(ui->listWidget, &QListWidget::currentRowChanged,
@@ -95,5 +95,13 @@ void MainWindow::onBmsReplyFinished() {
 
 MainWindow::~MainWindow()
 {
+    // client 是 this 的子对象，要等到 ~QObject 销毁子对象时才被删。
+    // 它的析构里会 close()，而 close() 同步发出 stateChanged，此时 MainWindow
+    // 的派生部分早已析构完，Qt6 对成员函数连接会用 dynamic_cast 校验接收者类型，
+    // 校验失败 → Q_ASSERT_X → abort() → 0xC0000409（"快速异常检测失败"）。
+    // 关窗前掐断回调，避免析构期被信号回调到半析构的对象上。
+    if (client)
+        disconnect(client, nullptr, this, nullptr);
+
     delete ui;
 }

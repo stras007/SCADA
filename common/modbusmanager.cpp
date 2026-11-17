@@ -92,7 +92,7 @@ bool ModbusManager::isConnected() {
 void ModbusManager::disconnectDevice()
 {
     client->disconnectDevice();
-    pollTimer->disconnect();
+    pollTimer->stop();
     waiting = false;
 }
 
@@ -238,6 +238,8 @@ void ModbusManager::connectTo(const QString &host, int port)
     {
         client->disconnectDevice();
     }
+    pollIndex = 0;        // 每次(重)连接都从第一个设备开始轮询
+    waiting   = false;
 
     // 设置连接参数
     client->setConnectionParameter(QModbusDevice::NetworkAddressParameter, host);

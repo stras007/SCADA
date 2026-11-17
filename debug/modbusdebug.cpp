@@ -2,18 +2,27 @@
 #include "ui_modbusdebug.h"
 #include <QFile>
 #include <QModbusDevice>
+#include <QScrollBar>
+
 
 ModbusDebug::ModbusDebug(QMainWindow *parent)
     : QMainWindow(parent)
     , ui(new Ui::ModbusDebug)
 {
     ui->setupUi(this);
+    if (!ui->centralwidget->layout()) {
+        auto *lay = new QVBoxLayout(ui->centralwidget);
+        lay->setContentsMargins(0, 0, 0, 0);
+        lay->setSpacing(0);
+        lay->addWidget(ui->scrollAreaPage);
+    }
 
     QFile qss(QStringLiteral(":/style/modbusdebug.qss"));
     if (qss.open(QIODevice::ReadOnly | QIODevice::Text)) {
         this->setStyleSheet(QString::fromUtf8(qss.readAll()));
         qss.close();
     }
+
 
     connect(mmanger, &ModbusManager::logMessage, this, &ModbusDebug::onLog);
     connect(mmanger, &ModbusManager::connectionChanaged,
@@ -22,8 +31,14 @@ ModbusDebug::ModbusDebug(QMainWindow *parent)
     connect(mmanger, &ModbusManager::pcsUpdated,
             this, &ModbusDebug::onPcsUpdated);
 
-    mmanger->setConfig(*this->config);
+    connect(mmanger, &ModbusManager::clusterUpdated,
+            this, &ModbusDebug::onClusterUpdated);
 
+
+    mmanger->setConfig(*this->config);
+    syncRealtimeRows();
+
+    ui->logEdit->setMaximumBlockCount(300);
 
 }
 static const QColor kColorNormal (0x0f172a);   // 正常：深色（接近纯黑的蓝灰）
@@ -95,6 +110,8 @@ void ModbusDebug::onLog(const QString &msg)
         QStringLiteral("[%1] %2").
         arg(QTime::currentTime().
         toString("hh:mm:ss"), msg));
+    QScrollBar *bar = ui->logEdit->verticalScrollBar();
+    bar->setValue(bar->maximum());
 }
 
 void ModbusDebug::setCellText(int row, int col, const QString &text)
@@ -124,6 +141,26 @@ int ModbusDebug::findDataRow(int deviceId) const
     return -1;
 }
 
+void ModbusDebug::syncRealtimeRows()
+{
+    QList<ClusterItem> list;
+    for (auto cluster : config->clusters)
+        if (cluster.enabled)
+            list.push_back(cluster);
+
+    ui->realtimeTable->setRowCount(list.size());
+    for (int row = 0;row < list.size(); row ++ ) {
+
+        for (int col = 0; col < 6; col ++ ) {
+            QString text = "-";
+            if (col == 0) text = QStringLiteral("%1 (从站%2)").arg(list[row].name).arg(list[row].slaveId);
+            ui->realtimeTable->setItem(row, col, new QTableWidgetItem(text));
+        }
+        ui->realtimeTable->item(row, 0)->setData(Qt::UserRole, list[row].deviceId);
+        setRowColor(row, kColorOffline);
+    }
+}
+
 void ModbusDebug::onClusterUpdated(const ClusterData &d)
 {
     // 输出窗口同步打印一份数据，方便不开界面时用命令行看采集节奏
@@ -133,10 +170,13 @@ void ModbusDebug::onClusterUpdated(const ClusterData &d)
                               .arg(d.soc).arg(d.maxTemp);
 
     int row = findDataRow(d.deviceId);
+
     if (row < 0)
     {
         // 找不到行 = 台账已经切换，报文过期，直接丢弃
         // （下发配置瞬间常见：旧设备的最后一包数据回来时行已经没了）
+
+
         return;
     }
 
@@ -208,17 +248,18 @@ void ModbusDebug::onModbusConnectionChanged(QModbusDevice::State st)
     // 坑：QSS 的属性选择器 [online="true"] 只在 polish 时求值，
     //     只 setProperty 不重新 polish，颜色不会变
     ui->lblConnState->setProperty("online", connected || connecting);
+    ui->btnConnect->setEnabled(!connecting);
     ui->lblConnState->style()->unpolish(ui->lblConnState);
     ui->lblConnState->style()->polish(ui->lblConnState);
 
     // TCP链路断开：表格全部设备置为未连接、整行置灰
     // （连不上链路时轮询本来就不跑，这里不用等超时，立即反映）
-    // if (!online)
-    // {
-    //     for (int r = 0; r < ui->realtimeTable->rowCount(); ++r)
-    //     {
-    //         setCellText(r, 5, QStringLiteral("未连接"));
-    //         setRowColor(r, kColorOffline);
-    //     }
-    // }
+    if (!connected)
+    {
+        for (int r = 0; r < ui->realtimeTable->rowCount(); r ++ )
+        {
+            setCellText(r, 5, QStringLiteral("未连接"));
+            setRowColor(r, kColorOffline);
+        }
+    }
 }

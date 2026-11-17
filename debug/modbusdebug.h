@@ -25,6 +25,7 @@ private slots:
     void setCellText(int row, int col, const QString &text);
     void setRowColor(int row, const QColor &color);
     int findDataRow(int deviceId) const;
+    void syncRealtimeRows();
 
 private:
     Ui::ModbusDebug *ui;
@@ -32,6 +33,7 @@ private:
     ModbusManager *mmanger = ModbusManager::instance();
     void onModbusConnectionChanged(QModbusDevice::State st);
     QModbusDevice::State mst; // 连接状态
+
 };
 
 #endif // MODBUSDEBUG_H
