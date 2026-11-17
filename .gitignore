@@ -1,0 +1,22 @@
+# 构建目录
+build/
+build-*/
+*.pro.user
+*.pro.user.*
+
+# qmake / 编译生成物
+Makefile
+Makefile.*
+.qmake.stash
+*.o
+*.obj
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+object_script.*
+*.exe
+
+# IDE / 工具缓存
+.qtc_clangd/
+.vscode/
+.vs/
