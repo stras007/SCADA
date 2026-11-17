@@ -6,24 +6,541 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1168</width>
-    <height>629</height>
+    <width>1195</width>
+    <height>823</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QCalendarWidget" name="calendarWidget">
+  <widget class="QScrollArea" name="scroll">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>240</y>
-     <width>296</width>
-     <height>229</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1201</width>
+     <height>791</height>
     </rect>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollContent">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1201</width>
+      <height>791</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="layPage">
+     <property name="spacing">
+      <number>12</number>
+     </property>
+     <property name="leftMargin">
+      <number>16</number>
+     </property>
+     <property name="topMargin">
+      <number>14</number>
+     </property>
+     <property name="rightMargin">
+      <number>16</number>
+     </property>
+     <property name="bottomMargin">
+      <number>14</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="kpiRow" stretch="1,1,1,1,1">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="kpiCard0">
+         <property name="class" stdset="0">
+          <string>kpiCard</string>
+         </property>
+         <layout class="QVBoxLayout" name="layKpi0">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>14</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblKpiTitle0">
+            <property name="text">
+             <string>系统 SOC</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiValue0">
+            <property name="text">
+             <string>--</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiValue</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiSub0">
+            <property name="text">
+             <string>等待数据</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiSub</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="kpiCard1">
+         <property name="class" stdset="0">
+          <string>kpiCard</string>
+         </property>
+         <layout class="QVBoxLayout" name="layKpi1">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>14</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblKpiTitle1">
+            <property name="text">
+             <string>当前功率</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiValue1">
+            <property name="text">
+             <string>--</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiValue</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiSub1">
+            <property name="text">
+             <string>等待数据</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiSub</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="kpiCard2">
+         <property name="class" stdset="0">
+          <string>kpiCard</string>
+         </property>
+         <layout class="QVBoxLayout" name="layKpi2">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>14</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblKpiTitle2">
+            <property name="text">
+             <string>今日充电量</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiValue2">
+            <property name="text">
+             <string>--</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiValue</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiSub2">
+            <property name="text">
+             <string>等待数据</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiSub</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="kpiCard3">
+         <property name="class" stdset="0">
+          <string>kpiCard</string>
+         </property>
+         <layout class="QVBoxLayout" name="layKpi3">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>14</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblKpiTitle3">
+            <property name="text">
+             <string>平均温度</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiValue3">
+            <property name="text">
+             <string>--</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiValue</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiSub3">
+            <property name="text">
+             <string>等待数据</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiSub</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="kpiCard4">
+         <property name="class" stdset="0">
+          <string>kpiCard</string>
+         </property>
+         <layout class="QVBoxLayout" name="layKpi4">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>14</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>14</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblKpiTitle4">
+            <property name="text">
+             <string>在线 / 告警</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiValue4">
+            <property name="text">
+             <string>--</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiValue</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblKpiSub4">
+            <property name="text">
+             <string>等待数据</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>kpiSub</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="midRow">
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="panelClusterWall">
+         <property name="class" stdset="0">
+          <string>panel</string>
+         </property>
+         <layout class="QVBoxLayout" name="layWall">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>12</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>12</number>
+          </property>
+          <property name="bottomMargin">
+           <number>12</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblWallTitle">
+            <property name="text">
+             <string>电池簇运行状态</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>panelTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="wallGrid">
+            <property name="spacing">
+             <number>10</number>
+            </property>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="chartRow">
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="panelTrend">
+         <property name="class" stdset="0">
+          <string>panel</string>
+         </property>
+         <layout class="QVBoxLayout" name="layTrend">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <property name="leftMargin">
+           <number>12</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>12</number>
+          </property>
+          <property name="bottomMargin">
+           <number>12</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblTrendTitle">
+            <property name="text">
+             <string>充放电功率趋势（最近 10 分钟）</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>panelTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QChartView" name="trendView">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>230</height>
+             </size>
+            </property>
+            <property name="renderHints">
+             <set>QPainter::RenderHint::Antialiasing</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="panelSoc">
+         <property name="class" stdset="0">
+          <string>panel</string>
+         </property>
+         <layout class="QVBoxLayout" name="laySoc">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <property name="leftMargin">
+           <number>12</number>
+          </property>
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <property name="rightMargin">
+           <number>12</number>
+          </property>
+          <property name="bottomMargin">
+           <number>12</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblSocTitle">
+            <property name="text">
+             <string>各簇 SOC 分布</string>
+            </property>
+            <property name="class" stdset="0">
+             <string>panelTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QChartView" name="socView">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>230</height>
+             </size>
+            </property>
+            <property name="renderHints">
+             <set>QPainter::RenderHint::Antialiasing</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QFrame" name="alarmBar">
+       <property name="class" stdset="0">
+        <string>panel</string>
+       </property>
+       <layout class="QHBoxLayout" name="layAlarm">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <property name="leftMargin">
+         <number>12</number>
+        </property>
+        <property name="topMargin">
+         <number>8</number>
+        </property>
+        <property name="rightMargin">
+         <number>12</number>
+        </property>
+        <property name="bottomMargin">
+         <number>8</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lblAlarmDot">
+          <property name="text">
+           <string>●</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblAlarmText">
+          <property name="text">
+           <string>系统运行正常</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spAlarm">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>qchartview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -4,5 +4,6 @@
         <file>style/styleutil.h</file>
         <file>style/modbusdebug.qss</file>
         <file>style/deviceconfig.qss</file>
+        <file>style/dashboard.qss</file>
     </qresource>
 </RCC>

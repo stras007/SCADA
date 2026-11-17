@@ -1,0 +1,38 @@
+/* =====================================================================
+   数据看板专属样式表（DashboardPage 构造时加载）
+   配色 token 与 common.qss 一致：teal #0d9488 / 告警红 #dc2626 /
+   边框 #e2e8f0 / 页面底 #eef2f4
+   ===================================================================== */
+
+/* 整页浅灰底（与设计稿 bg 一致），白卡片浮在上面 */
+QWidget#scrollContent { background: #eef2f4; }
+
+/* ---------- KPI 大数字卡（左侧 teal 竖条呼应设计稿 .stat） ---------- */
+QFrame[class="kpiCard"] {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #0d9488;
+    border-radius: 8px;
+}
+QLabel[class="kpiTitle"] { color: #64748b; font-size: 12px; }
+/* kpiValue 的字号/颜色由代码内联控制（告警需整值变红） */
+QLabel[class="kpiSub"]   { color: #94a3b8; font-size: 11px; }
+
+/* ---------- 簇卡片容器 + 内部文字层级 ---------- */
+/* 卡片是纯 QWidget 子类，选择器用 QWidget[class=...]；背景生效靠代码里的 WA_StyledBackground */
+/*
+ QWidget[class="clusterCard"] {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+QWidget[class="clusterCard"] QLabel[class="clusterName"]   { color: #334155; font-size: 12px; font-weight: 600; }
+QWidget[class="clusterCard"] QLabel[class="clusterDot"]    { color: #94a3b8; font-size: 10px; }
+QWidget[class="clusterCard"] QLabel[class="clusterStatus"] { color: #94a3b8; font-size: 11px; }
+QWidget[class="clusterCard"] QLabel[class="clusterSoc"]    { color: #0f172a; font-size: 22px; font-weight: 700; }
+QWidget[class="clusterCard"] QLabel[class="clusterItem"]   { color: #64748b; font-size: 11px; }
+
+*/
+/* ---------- 面板标题（沿用 common 的 panelTitle，仅调大一号） ---------- */
+QFrame[class="panel"] QLabel[class="panelTitle"] { font-size: 13px; }

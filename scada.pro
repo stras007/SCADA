@@ -1,4 +1,4 @@
-QT += widgets core serialbus network
+QT += widgets serialbus network charts
 
 CONFIG += c++17
 
@@ -8,6 +8,7 @@ CONFIG += c++17
 
 SOURCES += \
     common/modbusmanager.cpp \
+    dashboard/clustercard.cpp \
     dashboard/dashboard.cpp \
     debug/modbusdebug.cpp \
     device/deviceconfig.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     common/modbusmanager.h \
     common/modbusmap.h \
+    dashboard/clustercard.h \
     dashboard/dashboard.h \
     debug/modbusdebug.h \
     device/deviceconfig.h \
@@ -27,6 +29,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    dashboard/clustercard.ui \
     dashboard/dashboard.ui \
     debug/modbusdebug.ui \
     device/deviceconfig.ui \
