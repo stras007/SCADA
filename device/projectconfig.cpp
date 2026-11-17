@@ -1,4 +1,4 @@
-#include "device/projectconfig.h"
+#include "projectconfig.h"
 #include <QDebug>
 
 // 静态单例指针初始化为空

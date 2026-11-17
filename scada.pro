@@ -8,6 +8,7 @@ CONFIG += c++17
 
 SOURCES += \
     common/modbusmanager.cpp \
+    dashboard/dashboard.cpp \
     debug/modbusdebug.cpp \
     device/deviceconfig.cpp \
     device/dialog.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     common/modbusmanager.h \
     common/modbusmap.h \
+    dashboard/dashboard.h \
     debug/modbusdebug.h \
     device/deviceconfig.h \
     device/dialog.h \
@@ -25,6 +27,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    dashboard/dashboard.ui \
     debug/modbusdebug.ui \
     device/deviceconfig.ui \
     device/dialog.ui \
@@ -44,13 +47,11 @@ configFiles.files = $$PWD/resources/project_config.json
 configFiles.path = $$OUT_PWD/debug
 
 
-INCLUDEPATH +=
-    $$PWD/device/deviceconfig.h
-    $$PWD/device/projectconfig.h
-    $$PWD/device/dialog.h
-    $$PWD/common/modbusmanager.h
-    $$PWD/common/modbusmap.h
-    $$PWD/debug/modbusdebug.h
+INCLUDEPATH += \
+    $$PWD/device \
+    $$PWD/common \
+    $$PWD/debug \
+    $$PWD/dashboard
 
 RESOURCES += \
     resources/resources.qrc

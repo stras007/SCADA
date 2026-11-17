@@ -2,8 +2,8 @@
 #define MODBUSDEBUG_H
 
 #include <QMainWindow>
-#include "device/projectconfig.h"
-#include "common/modbusmanager.h"
+#include "projectconfig.h"
+#include "modbusmanager.h"
 
 namespace Ui {
 class ModbusDebug;

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QModbusTcpClient>
 #include <QTimer>
-#include "device/projectconfig.h"
+#include "projectconfig.h"
 
 /**
  * @brief 越限告警位定义：一个 quint16 装 8 种状态，位运算判断
