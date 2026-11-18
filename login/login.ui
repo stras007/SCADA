@@ -141,7 +141,7 @@
            </size>
           </property>
           <property name="placeholderText">
-           <string>operator / engineer / admin</string>
+           <string>请输入用户名</string>
           </property>
           <property name="clearButtonEnabled">
            <bool>true</bool>
@@ -167,7 +167,7 @@
            <enum>QLineEdit::EchoMode::Password</enum>
           </property>
           <property name="placeholderText">
-           <string>••••••</string>
+           <string>请输入密码</string>
           </property>
          </widget>
         </item>
