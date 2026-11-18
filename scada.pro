@@ -9,12 +9,14 @@ CONFIG += c++17
 SOURCES += \
     chartstest.cpp \
     common/modbusmanager.cpp \
+    common/session.cpp \
     dashboard/clustercard.cpp \
     dashboard/dashboard.cpp \
     debug/modbusdebug.cpp \
     device/deviceconfig.cpp \
     device/dialog.cpp \
     device/projectconfig.cpp \
+    login/login.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -22,12 +24,14 @@ HEADERS += \
     chartstest.h \
     common/modbusmanager.h \
     common/modbusmap.h \
+    common/session.h \
     dashboard/clustercard.h \
     dashboard/dashboard.h \
     debug/modbusdebug.h \
     device/deviceconfig.h \
     device/dialog.h \
     device/projectconfig.h \
+    login/login.h \
     mainwindow.h
 
 FORMS += \
@@ -37,6 +41,7 @@ FORMS += \
     debug/modbusdebug.ui \
     device/deviceconfig.ui \
     device/dialog.ui \
+    login/login.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -57,7 +62,8 @@ INCLUDEPATH += \
     $$PWD/device \
     $$PWD/common \
     $$PWD/debug \
-    $$PWD/dashboard
+    $$PWD/dashboard \
+    $$PWD/login
 
 RESOURCES += \
     resources/resources.qrc

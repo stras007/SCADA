@@ -1,0 +1,107 @@
+/* 登录页样式：配色与设计稿 02 一致（#eef2f4 底 / #fff 卡片 / #0d9488 主色） */
+
+QDialog#LoginDialog {
+    background-color: #eef2f4;
+}
+
+/* 卡片：白底 + 1px 边 + 8px 圆角，对应设计稿的 login-card */
+QFrame#card {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+QLabel#lblTitle {
+    color: #115e59;
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 2px;
+}
+
+QLabel#lblUser,
+QLabel#lblPwd,
+QLabel#lblRole {
+    color: #475569;
+    font-size: 12px;
+    padding-top: 6px;
+    background: transparent;
+}
+
+QLabel#lblHint {
+    color: #94a3b8;
+    font-size: 11px;
+    padding-top: 8px;
+    background: transparent;
+}
+
+QLabel#lblError {
+    color: #dc2626;
+    font-size: 12px;
+    background: transparent;
+}
+
+QLineEdit#editUser,
+QLineEdit#editPwd {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: #0f172a;
+    selection-background-color: #ccfbf1;
+    selection-color: #115e59;
+}
+
+QLineEdit#editUser:focus,
+QLineEdit#editPwd:focus {
+    border: 1px solid #0d9488;
+}
+
+QComboBox#comboRole {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: #0f172a;
+}
+
+QComboBox#comboRole:focus {
+    border: 1px solid #0d9488;
+}
+
+QComboBox#comboRole::drop-down {
+    border: none;
+    width: 22px;
+}
+
+QComboBox#comboRole QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    selection-background-color: #ccfbf1;
+    selection-color: #115e59;
+    outline: 0;
+}
+
+QCheckBox#chkRemember {
+    color: #475569;
+    font-size: 12px;
+    spacing: 6px;
+    padding-top: 4px;
+    background: transparent;
+}
+
+QPushButton#btnLogin {
+    background-color: #0d9488;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QPushButton#btnLogin:hover {
+    background-color: #0b7c72;
+}
+
+QPushButton#btnLogin:pressed {
+    background-color: #115e59;
+}

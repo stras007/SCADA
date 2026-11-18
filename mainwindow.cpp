@@ -1,8 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "session.h"
 #include <QDebug>
+#include <QLabel>
 #include <QModbusDataUnit>
 #include <QModbusReply>
+#include <QStatusBar>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,6 +33,45 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->listWidget, &QListWidget::currentRowChanged,
             ui->pageList, &QStackedWidget::setCurrentIndex);
     ui->listWidget->setCurrentRow(0);
+
+    applyRolePermissions();
+}
+
+void MainWindow::applyRolePermissions()
+{
+    Session *session = Session::instance();
+
+    // 侧边栏顺序：0 数据看板 / 1 设备组态 / 2 通讯调试
+    // 操作员只能看数据，组态和调试属于工程师及以上权限
+    struct NavRule {
+        int row;
+        bool allowed;
+    };
+    const NavRule rules[] = {
+        {1, session->canConfigure()},
+        {2, session->canDebug()},
+    };
+    for (const NavRule &rule : rules) {
+        QListWidgetItem *item = ui->listWidget->item(rule.row);
+        if (!item) {
+            continue;
+        }
+        // 置灰但保留文字：用户知道有这个功能，只是当前角色进不去
+        item->setFlags(rule.allowed ? (item->flags() | Qt::ItemIsEnabled)
+                                    : (item->flags() & ~Qt::ItemIsEnabled));
+        item->setToolTip(rule.allowed ? QString()
+                                      : QStringLiteral("需要工程师或管理员权限"));
+    }
+
+    setWindowTitle(QStringLiteral("储能监控系统 · %1").arg(session->roleName()));
+
+    // 状态栏常驻当前用户，切换账号时一眼能看出身份
+    statusBar()->setSizeGripEnabled(false);
+    auto *userLabel = new QLabel(
+        QStringLiteral("当前用户：%1（%2）").arg(session->userName(), session->roleName()),
+        this);
+    userLabel->setObjectName(QStringLiteral("lblCurrentUser"));
+    statusBar()->addPermanentWidget(userLabel);
 }
 
 void MainWindow::onStateChanged(QModbusDevice::State state) {

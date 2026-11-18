@@ -23,6 +23,9 @@ public:
     ~MainWindow() override;
 
 private:
+    // 按登录角色禁用/放开侧边栏入口，并在状态栏显示当前用户
+    void applyRolePermissions();
+
     Ui::MainWindow *ui;
     QModbusTcpClient *client = nullptr;
 };

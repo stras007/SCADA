@@ -87,8 +87,23 @@ QListWidget#listWidget::item {
     color: #475569;
 }
 QListWidget#listWidget::item:hover { background: #e2e8f0; }
+/* 角色权限不足的入口：置灰但仍显示文字，用户知道有该功能 */
+QListWidget#listWidget::item:disabled { color: #cbd5e1; }
 QListWidget#listWidget::item:selected {
     background: #0d9488;
     color: #ffffff;
     border: none;
+}
+
+/* ---------- 状态栏：显示当前登录用户 ---------- */
+QStatusBar {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    color: #475569;
+}
+QStatusBar::item { border: none; }
+QStatusBar QLabel#lblCurrentUser {
+    color: #475569;
+    padding: 2px 10px;
+    background: transparent;
 }
