@@ -51,7 +51,7 @@ void ModbusManager::onStateChanged(QModbusDevice::State st) {
 
     if (st != QModbusDevice::ConnectingState)
         emit logMessage(message);
-    emit connectionChanaged(st);
+    emit connectionChanged(st);
 }
 
 void ModbusManager::setConfig(const ProjectConfig &cfg)

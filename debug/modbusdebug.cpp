@@ -25,7 +25,7 @@ ModbusDebug::ModbusDebug(QMainWindow *parent)
 
 
     connect(mmanger, &ModbusManager::logMessage, this, &ModbusDebug::onLog);
-    connect(mmanger, &ModbusManager::connectionChanaged,
+    connect(mmanger, &ModbusManager::connectionChanged,
             this, &ModbusDebug::onModbusConnectionChanged);
 
     connect(mmanger, &ModbusManager::pcsUpdated,

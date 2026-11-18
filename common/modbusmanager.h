@@ -96,7 +96,7 @@ private slots:
 
 signals:
     void logMessage(const QString& msg);
-    void connectionChanaged(QModbusDevice::State st);
+    void connectionChanged(QModbusDevice::State st);
     void clusterUpdated(const ClusterData& data);
     void pcsUpdated(const PcsData& data);
     void configApplied(const QList<ClusterItem>& clusters);

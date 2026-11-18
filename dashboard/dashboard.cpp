@@ -1,9 +1,27 @@
 #include "dashboard.h"
 #include "ui_dashboard.h"
 #include <QFile>
+#include <QBarSeries>
+#include <QBarCategoryAxis>
+#include <QValueAxis>
 
 // 超过这么多秒没收到新数据，就当这一簇离线。
 static const int kOfflineSecs = 15;
+
+// SOC 右轴固定 0~100：SOC 的物理范围就摆在这，量程一变就没法横向比较了。
+// 想让它随数据自动缩放（只看最近一段的变化），把这两个值改成 e.g. 40 / 100 即可。
+static const double kSocAxisMin = 0.0;
+static const double kSocAxisMax = 100.0;
+
+// 图表统一观感：浅灰网格 + 灰字，配合白卡片（qss 管不到 chart 内部，只能代码里逐项设）
+static void styleAxis(QAbstractAxis *ax)
+{
+    ax->setLabelsColor(QColor("#64748b"));    // 刻度数字：slate-500，比正文浅一档
+    ax->setGridLineColor(QColor("#e2e8f0"));  // 网格线：slate-200，只当参照，不抢数据
+    ax->setLinePenColor(QColor("#e2e8f0"));   // 轴线本身也调浅，默认是黑色太硬
+    QFont f(QStringLiteral("Microsoft YaHei"), 9);  // 和界面正文同字体，中文刻度才不丑
+    ax->setLabelsFont(f);
+}
 
 DashBoard::DashBoard(QWidget *parent)
     : QMainWindow(parent)
@@ -29,11 +47,15 @@ DashBoard::DashBoard(QWidget *parent)
 
     ModbusManager* mode =  ModbusManager::instance();
     //当连接上数据服务器 同步接收数据
-    connect(mode,&ModbusManager::connectionChanaged,this,&DashBoard::onConnectionState);
+    connect(mode,&ModbusManager::connectionChanged,this,&DashBoard::onConnectionState);
     connect(mode,&ModbusManager::clusterUpdated,this,&DashBoard::onClusterUpdate);
     connect(mode,&ModbusManager::pcsUpdated,this,&DashBoard::onPcsUpdate);
 
     buildClusterWall();
+     //初始化柱状图
+    this->initSocChart();
+    this->initTrendChart();
+
     //自己创建一个定时器,刷新我自己的界面
     this->timer= new QTimer(this);
     this->timer->setInterval(1000);
@@ -41,7 +63,7 @@ DashBoard::DashBoard(QWidget *parent)
     this->timer->start();//启动定时器
     //刷新界面
     refreshKpi();
-    //初始化结束以后--构建卡片墙
+
 
 
 }
@@ -61,8 +83,8 @@ void DashBoard::setKpi(int index, const QString &kpiVal, const QString &subVal, 
 
     m_valueLabels[index]->setStyleSheet(
         warm? QStringLiteral("font-size: 22px; font-weight: 700; color: #dc2626;")
-             :
-            QStringLiteral("font-size: 22px; font-weight: 700; color: #0f172a;")
+        :
+        QStringLiteral("font-size: 22px; font-weight: 700; color: #0f172a;")
         );
 }
 
@@ -104,6 +126,127 @@ void DashBoard::buildClusterWall()
     else
         ui->lblWallTitle->setText(QStringLiteral("电池簇运行状态（未配置电池簇）"));
 
+}
+/*
+ * 1.加载完成ProjectConfig以后 能够确定 x轴
+ * 2.Y轴 0%-100%
+ * 3.每秒钟去modbus 采集一个电池簇, 每秒刷新一个电池簇
+ *
+ *
+ *
+ **/
+void DashBoard::initSocChart()
+{
+    //1.准备一个QChart
+    QChart *chart = new QChart;
+    chart->legend()->hide();
+    //透明背景色
+    chart->setBackgroundVisible(false);
+    chart->setMargins(QMargins(4,4,4,4));
+
+    //设置柱子
+    m_socSet=new QBarSet(QStringLiteral("SOC"));
+    m_socSet->setColor(QColor("#0d9488"));
+
+    //填充参数对象
+    QBarSeries *series = new QBarSeries;
+    series->append(m_socSet);
+    series->setBarWidth(0.6);//占当前组60%
+    chart->addSeries(series);
+    //X轴
+    QBarCategoryAxis *aixX = new QBarCategoryAxis;
+    const QList<ClusterItem> &list = ProjectConfig::instance()->clusters;
+    for(auto item:list ){
+        if(!item.enabled)continue;
+        aixX->append(item.name);
+        //
+
+        m_socSet->append(0);
+    }
+    //设置样式
+    styleAxis(aixX);
+    chart->addAxis(aixX, Qt::AlignBottom);
+    series->attachAxis(aixX);
+    //设置Y轴
+    QValueAxis *aixY = new QValueAxis;
+    aixY->setRange(0,100);
+    aixY->setLabelFormat("%.0f");
+    //放到chart  放到下面就是x轴
+    chart->addAxis(aixY,Qt::AlignLeft);
+    series->attachAxis(aixY);
+
+    //放到界面
+    ui->socView->setChart(chart);
+}
+//设计界面
+/*
+ *  QLineSeries   *m_powerSeries = nullptr;  // 功率趋势的折线序列
+    QLineSeries   *m_socLine     = nullptr;  // SOC 趋势的折线序列（双纵轴的右轴）
+    QDateTimeAxis *m_trendX      = nullptr;  // 时间轴，两条线共用，窗口随当前时间滚动
+    QValueAxis    *m_trendY      = nullptr;  // 左轴：功率，对称量程
+    QValueAxis    *m_socY        = nullptr;
+ **/
+void DashBoard::initTrendChart()
+{
+    //创建统计图表
+    QChart *chart = new QChart;
+    chart->setBackgroundVisible(false);
+    chart->setMargins( QMargins(4,4,4,4));
+    // 两条线要能区分，图例就得显示出来（单线时是多余的，这里不能 hide）
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);   // 放底部，横向占位比右侧少
+    chart->legend()->setLabelColor(QColor("#64748b"));// 图例文字和刻度同色，视觉统一
+    chart->legend()->setFont(QFont(QStringLiteral("Microsoft YaHei"), 9));
+
+
+    //创建两个折线对象
+    //功率折线
+    m_powerSeries = new QLineSeries;
+    m_powerSeries->setName(QStringLiteral("功率 kW"));
+    m_powerSeries->setPen(QPen(QColor("#0d9488"), 2));   // 主色 teal，粗 2px
+    chart->addSeries(m_powerSeries);
+    //剩余电量折线
+    m_socLine = new QLineSeries;
+    m_socLine->setName(QStringLiteral("SOC %"));
+    m_socLine->setPen(QPen(QColor("#f59e0b"), 2, Qt::DashLine));
+    chart->addSeries(m_socLine);
+
+    //设计X轴  时间轴 过去10分钟到现在
+    m_trendX=new QDateTimeAxis;
+    m_trendX->setFormat("HH:mm");
+    m_trendX->setTickCount(6);
+    //设置x轴显示范围
+    m_trendX->setRange(QDateTime::currentDateTime().addSecs(-600),QDateTime::currentDateTime());
+    styleAxis(m_trendX);
+    chart->addAxis(m_trendX,Qt::AlignBottom);
+    //两个统计折线公用一个x轴
+    m_powerSeries->attachAxis(m_trendX);
+    m_socLine->attachAxis(m_trendX);
+
+    // 左轴：功率，正=放电 负=充电，所以量程必须对称；初始 ±50，见到更大值再扩
+    m_trendY = new QValueAxis;
+    m_trendY->setRange(-m_powerPeak, m_powerPeak);
+    m_trendY->setTickCount(5);             // 5 个刻度：-peak、-half、0、half、peak
+    m_trendY->setLabelFormat("%.0f");      // 功率看整数就够，小数点反而占地方
+    m_trendY->setTitleText(QStringLiteral("kW"));   // 单位挂在轴上，别塞进图例文字
+    styleAxis(m_trendY);
+    chart->addAxis(m_trendY, Qt::AlignLeft);
+    m_powerSeries->attachAxis(m_trendY);
+
+    // 右轴：SOC，固定 0~100。刻度字用橙色，和橙色虚线对应得上
+    m_socY = new QValueAxis;
+    m_socY->setRange(kSocAxisMin, kSocAxisMax);
+    m_socY->setTickCount(5);
+    m_socY->setLabelFormat("%.0f");
+    m_socY->setTitleText(QStringLiteral("%"));
+    m_socY->setGridLineVisible(false);     // 关掉自己的网格，否则和左轴横线叠成一片
+    styleAxis(m_socY);
+    m_socY->setLabelsColor(QColor("#d97706"));   // 要在 styleAxis 之后设，否则被它覆盖
+    chart->addAxis(m_socY, Qt::AlignRight);      // 右轴必须 AlignRight
+    m_socLine->attachAxis(m_socY);
+
+
+    ui->trendView->setChart(chart);
 }
 
 void DashBoard::onPcsUpdate(const PcsData &data)
@@ -258,7 +401,55 @@ void DashBoard::refreshKpi()
                             && stamp.secsTo(now) <= kOfflineSecs;
         m_cards.at(i)->setData(d, hasData, online);
     }
+    //刷新柱状图数据
+    m_socAvg = (count > 0) ? socSum / double(count) : -1.0;
+    refreshCharts(now);
 
+}
+
+void DashBoard::refreshCharts(const QDateTime &now)
+{
+    //获取当前时间的时间戳
+    const qint64 t=   now.toMSecsSinceEpoch();
+    if(m_hasPcs){
+        m_powerSeries->append(t,m_pcs.power/10.0);
+    }
+    if(m_socAvg>0){
+        m_socLine->append(t,m_socAvg);
+    }
+
+    //计算当前的10分钟以前的时间戳
+    const qint64 cutoff = t - 10*60*1000;
+    while(!m_powerSeries->points().isEmpty()
+           &&m_powerSeries->points().first().x()<cutoff){
+         m_powerSeries->remove(0);
+    }
+    while(!m_socLine->points().isEmpty()
+           &&m_socLine->points().first().x()<cutoff){
+        m_socLine->remove(0);
+    }
+    //x轴更新最新的10分钟范围
+    m_trendX->setRange(now.addSecs(-600),now);
+
+
+    //更新y轴的量程
+    if(m_hasPcs){
+        //获取到当前的功率
+        const double kw =  qAbs(m_pcs.power/10.0);
+        if(kw>m_powerPeak){
+            //给m_powerPeak扩大1.2倍
+            m_powerPeak=kw*1.2;
+            m_trendY->setRange(-m_powerPeak,m_powerPeak);
+        }
+
+    }
+
+    //动态刷新界面的柱状图
+    for(int i=0;i<m_cardIds.size();i++){
+        int deviceId =  m_cardIds.at(i);
+        int soc= m_clusters.contains(deviceId)?m_clusters.value(deviceId).soc:0;
+        m_socSet->replace(i,soc);
+    }
 
 }
 // ---------------------- 启用的簇数量 ----------------------

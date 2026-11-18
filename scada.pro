@@ -7,6 +7,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    chartstest.cpp \
     common/modbusmanager.cpp \
     dashboard/clustercard.cpp \
     dashboard/dashboard.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    chartstest.h \
     common/modbusmanager.h \
     common/modbusmap.h \
     dashboard/clustercard.h \
@@ -29,6 +31,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    chartstest.ui \
     dashboard/clustercard.ui \
     dashboard/dashboard.ui \
     debug/modbusdebug.ui \
